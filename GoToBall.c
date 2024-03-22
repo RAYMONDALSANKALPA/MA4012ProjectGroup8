@@ -12,7 +12,7 @@ int enemy_in_range;
 void go_to_ball(){
 
 	while (1==1){
-		if ((SensorValue(sharp_sensor1))< 1000 && (SensorValue(sharp_sensor2))>1000){ //both long and short sensoer must have value within range to trigger "Collect ball range"
+		if ((SensorValue(sharp_sensor1))< 1000 && (SensorValue(sharp_sensor2))>1000){ //long sensor in range and short sensor not in range(if both in range means enemy robot)
 			ball_in_collection_range = 1;
 			writeDebugStreamLine("%d" ,"ball_in_collection_range");
 		}
