@@ -21,15 +21,53 @@
 //    NO_BOUNDARY_DETECTED
 //};
 
-// sharp sensor parameter
-int top_detection_value = 800;
-int bottom_detection_value = 800;
+// converting sensor analog value to cm and avg it
+//int enemy_front_dist;
+//int enemy_back_dist;
+float avg_efd;
+float avg_ebd;
+float total_efd;
+float total_ebd;
 
-// distance
-float dist_ft;
-float dist_bl;
-float dist_br;
-float dist_back;
+//int ball_long;
+//int ball_short;
+float avg_bl;
+float avg_bs;
+float total_bl;
+float total_bs;
+int NUM_READINGS = 100;
+
+task sensor_calibration(){
+	while(1){
+
+	total_efd = 0;
+	total_ebd = 0;
+	total_bl = 0;
+	total_bs = 0;
+
+	//enemy_front_dist = SensorValue(sharp_front_top);
+	//enemy_back_dist = SensorValue(sharp_back_top);
+	//ball_long = SensorValue(sharp_bl)
+	//ball_short = SensorValue(sharp_bs)
+
+	for (int i = 0; i <= NUM_READINGS; i++) {
+		total_efd += 29.98*pow((SensorValue(sharp_front_top)*0.0012207031), -1.173);
+		total_ebd += 29.98*pow((SensorValue(sharp_back_top)*0.0012207031), -1.173);
+		total_bl += 29.98*pow((SensorValue(sharp_bl)*0.0012207031), -1.173);
+		total_bs += 29.98*pow((SensorValue(sharp_bs)*0.0012207031), -1.173);
+	}
+	avg_efd = total_efd/NUM_READINGS;
+	avg_ebd = total_ebd/NUM_READINGS;
+	avg_bl = total_bl/NUM_READINGS;
+	avg_bs = total_bs/NUM_READINGS;
+
+	sleep(100);
+	}
+}
+
+// sharp sensor parameter
+int top_detection_value = 357;
+int bottom_detection_value = 100;
 
 // ball status
 int ball_found = 0;
@@ -49,27 +87,9 @@ int ball_found = 0;
 //// spin_search alternation
 //int spin_CCW = 0;
 
-void read_sharp_front_top()
-{
-    dist_ft = SensorValue(sharp_front_top);
-    return;
-}
-
-void read_sharp_front_bottom_l()
-{
-    dist_bl = SensorValue(sharp_front_bottom_l);
-    return;
-}
-
-void read_sharp_front_bottom_r()
-{
-    dist_br = SensorValue(sharp_front_bottom_r);
-    return;
-}
-
 void scan_ball()
 {
-    if (SensorValue(sharp_front_bottom_l) > bottom_detection_value && SensorValue(sharp_front_top) < top_detection_value)
+    if (avg_bl < bottom_detection_value && avg_efd > top_detection_value)
     {
             ball_found = 1;
             return;
