@@ -32,11 +32,11 @@ task main()
                 // ball collecion mechanism activate here
            			writeDebugStreamLine("%s", "begin collection mechanism");
             		sleep(5000);
-            		ball_collection();
-            		if (ball_collected_limit != 1){
-            			// insert delivery mechanism
-            		}
-            		else if (ball_collected_limit ==1)ball_found == 0; // sends it back into ball_found searching loop
+            		go_to_ball();
+            		//if (ball_collected_limit != 1){
+            		//	// insert delivery mechanism
+            		//}
+            		//else if (ball_collected_limit ==1)ball_found = 0; // sends it back into ball_found searching loop
             }
             else if (ball_found == 0)
             {
