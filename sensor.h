@@ -54,7 +54,7 @@ task sensor_calibration(){
 		total_efd += 29.98*pow((SensorValue(sharp_front_top)*0.0012207031), -1.173);
 		total_ebd += 29.98*pow((SensorValue(sharp_back_top)*0.0012207031), -1.173);
 		total_bl += 29.98*pow((SensorValue(sharp_bl)*0.0012207031), -1.173);
-		total_bs += 29.98*pow((SensorValue(sharp_bs)*0.0012207031), -1.173);
+		total_bs += 5.2819*pow((SensorValue(sharp_bs)*0.0012207031), -1.161);
 	}
 	avg_efd = total_efd/NUM_READINGS;
 	avg_ebd = total_ebd/NUM_READINGS;
