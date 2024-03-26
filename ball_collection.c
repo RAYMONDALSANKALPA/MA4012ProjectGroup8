@@ -12,11 +12,11 @@ void check_ball_in_range(){
 			writeDebugStreamLine("%s" ,"ball_in_collection_range");
 			return;
 		}
-		else if (avg_bs < 50 && avg_efd > top_detection_value){
-			ball_in_collection_range = 1;
-			writeDebugStreamLine("%s" ,"ball_in_collection_range");
-			return;
-		}
+		//else if (avg_bs < 50 && avg_efd > top_detection_value){
+		//	ball_in_collection_range = 1;
+		//	writeDebugStreamLine("%s" ,"ball_in_collection_range");
+		//	return;
+		//}
 		//else if ((SensorValue(sharp_sensor1))< 100 && (SensorValue(sharp_sensor2))<100){
 		//	enemy_in_range = 1; // run enemy detection code?
 		//}
