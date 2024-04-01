@@ -1,6 +1,6 @@
 void spinning_search()
 {
-		writeDebugStreamLine("%s", "spinning searching");
+	writeDebugStreamLine("%s", "spinning searching");
     float rot_time = 4500;
     float rot_spd = 100;
 

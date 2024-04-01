@@ -1,0 +1,46 @@
+31/03/2024
+Using without USB:
+https://www.vexforum.com/t/vex-cortex-can-it-run-as-a-stand-alone-controller-without-a-remote/111040
+Need to set to "USB only" mode
+
+2 wire 393 motor is "high strength"
+
+Can use time1[timer] for returning the current value of the referenced timer as an integer. resolution for time1 is in milliseconds.
+Max amount of time is 32 seconds. 
+Vex has 4 internal timers. 
+for about 327.58 seconds, use time10 
+
+SensorValue
+
+Values for ballsensor and obstacle for tennisball
+11  203 96
+12  221 126
+13  1426 126
+14  222 68
+15  227 174
+21  222 80
+22  452 56
+23  866 95
+24  214 89
+25  233 80
+31  224 80
+32  335 52
+33  666 126
+34  221 69
+35  224 59
+
+Values for ballsensor and obstacle for enemy
+
+1 1413  713
+2 835   599
+3 467   535
+
+
+Ball sensing: (ball sensor)
+203     221     1426    222     227
+222     452     866     214     233
+224     335     666     221     224
+Stages: 
+Searching-> move till ball sensor reaches value of avg of 224 and 666 =         445 
+Closing-> keep moving such that the ball is found, comparing the values
+Collection-> ball is ready for collection! value more that                      1200

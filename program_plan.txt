@@ -1,0 +1,12 @@
+This document aims to make a plan for the code to work with this document
+
+The header files shall be divided based on functions. 
+1 movement - movement.cpp
+2 sensing - 
+3 tasks which build on the previous headers
+4 
+
+the sensors and motors will be calibrated in the main function. 
+The main function will basically call the tasks
+
+Each function will be very short: should fit one page
