@@ -89,7 +89,7 @@ int ball_found = 0;
 
 void scan_ball()
 {
-    if (avg_bl < bottom_detection_value)
+    if (avg_bl < bottom_detection_value && avg_efd > top_detection_value)
     {
             ball_found = 1;
             return;
