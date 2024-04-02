@@ -31,7 +31,7 @@ float total_ebd;
 
 //int ball_long;
 //int ball_short;
-float avg_bl;
+float avg_bl = 1000;
 float avg_bs;
 float total_bl;
 float total_bs;
@@ -89,7 +89,7 @@ int ball_found = 0;
 
 void scan_ball()
 {
-    if (avg_bl < bottom_detection_value && avg_efd > top_detection_value)
+    if (avg_bl < bottom_detection_value)
     {
             ball_found = 1;
             return;

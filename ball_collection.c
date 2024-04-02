@@ -3,6 +3,7 @@ int ball_in_collection_range ;
 int count;
 int prev_dist;
 int conveyor_speed = 100;
+int ball_collected_limit;
 //int ball_collected_limit = 0;
 
 // function to check if ball in collection range for neater code as it will be called multiple times
@@ -90,7 +91,7 @@ void go_to_ball(){
 		// not triggered, causing this script to recognise it as a failed collection.
 		delay(1000);
 
-		ball_collected_limit = SensorValue(ball_limit)
+		ball_collected_limit = SensorValue(ball_limit);
 		// if ball collected
 		if (ball_collected_limit != 1){
 			writeDebugStreamLine("%s", "ball collected at limit switch!");

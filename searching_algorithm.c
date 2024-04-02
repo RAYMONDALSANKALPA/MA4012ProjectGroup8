@@ -35,8 +35,12 @@ void spinning_search()
         {
         		motor(left_driver) = 0;
             motor(right_driver) = 0;
-            sleep(500);
+            //sleep(1000);
             scan_ball();
+            if (ball_found == 0)
+          	{
+          		spinning_search();
+          	}
             writeDebugStreamLine("%s", "ball found... from spin search");
             return;
         }

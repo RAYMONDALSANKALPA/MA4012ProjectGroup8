@@ -2,7 +2,7 @@
 #pragma config(Sensor, in3,    sharp_back_top, sensorAnalog)
 #pragma config(Sensor, in7,    sharp_bl,       sensorAnalog)
 #pragma config(Sensor, in8,    sharp_bs,       sensorAnalog)
-#pragma config(Sensor, dgtl11, ball_limit,     sensorDigitalIn)
+#pragma config(Sensor, dgtl12, ball_limit,     sensorDigitalIn)
 #pragma config(Sensor, dgtl4, front_l_line, sensorDigitalIn)
 #pragma config(Sensor, dgtl3, front_r_line, sensorDigitalIn)
 #pragma config(Sensor, dgtl2, back_l_line, sensorDigitalIn)
