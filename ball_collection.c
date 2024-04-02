@@ -7,24 +7,24 @@ int conveyor_speed = 100;
 
 // function to check if ball in collection range for neater code as it will be called multiple times
 void check_ball_in_range(){
-		if (avg_bl < bottom_detection_value && avg_efd > top_detection_value){ //long sensor in range and short sensor not in range(if both in range means enemy robot)
-			ball_in_collection_range = 1;
-			writeDebugStreamLine("%s" ,"ball_in_collection_range");
-			return;
-		}
-		//else if (avg_bs < 50 && avg_efd > top_detection_value){
-		//	ball_in_collection_range = 1;
-		//	writeDebugStreamLine("%s" ,"ball_in_collection_range");
-		//	return;
-		//}
-		//else if ((SensorValue(sharp_sensor1))< 100 && (SensorValue(sharp_sensor2))<100){
-		//	enemy_in_range = 1; // run enemy detection code?
-		//}
-		else{
-			ball_in_collection_range =0;
-			writeDebugStreamLine("%s" ,"ball_not_in_collection_range");
-			return;
-		}
+	if (avg_bl < bottom_detection_value && avg_efd > top_detection_value){ //long sensor in range and short sensor not in range(if both in range means enemy robot)
+		ball_in_collection_range = 1;
+		writeDebugStreamLine("%s" ,"ball_in_collection_range");
+		return;
+	}
+	//else if (avg_bs < 50 && avg_efd > top_detection_value){
+	//	ball_in_collection_range = 1;
+	//	writeDebugStreamLine("%s" ,"ball_in_collection_range");
+	//	return;
+	//}
+	//else if ((SensorValue(sharp_sensor1))< 100 && (SensorValue(sharp_sensor2))<100){
+	//	enemy_in_range = 1; // run enemy detection code?
+	//}
+	else{
+		ball_in_collection_range =0;
+		writeDebugStreamLine("%s" ,"ball_not_in_collection_range");
+		return;
+	}
 }
 
 // Starts conveyer
@@ -37,8 +37,8 @@ void conveyor_start()
 // Conveyor will only reverse if ball has been collected
 void conveyor_reverse()
 {
-		motor(conveyor_driver) = -conveyor_speed;
-		writeDebugStreamLine("%s", "Conveyor Reversed/n");
+	motor(conveyor_driver) = -conveyor_speed;
+	writeDebugStreamLine("%s", "Conveyor Reversed/n");
 }
 
 // Stops the conveyor after reversing
@@ -73,14 +73,14 @@ void go_to_ball(){
 					writeDebugStreamLine("%s", "ball getting further away, initiate short sweep");
 					check_ball_in_range();
 					motor(left_driver) = 0;
-	        motor(right_driver) = 0;
-	        sleep(500);
-	        motor(left_driver) = -60;
-	        motor(right_driver) = 60;
-	        sleep(500);
-	        motor(left_driver) = 60;
-	        motor(right_driver) = -60;
-					}
+					motor(right_driver) = 0;
+					sleep(500);
+					motor(left_driver) = -80;
+					motor(right_driver) = 80;
+					sleep(500);
+					motor(left_driver) = 80;
+					motor(right_driver) = -80;
+				}
 			}
 			count ++;
 		}
@@ -90,19 +90,22 @@ void go_to_ball(){
 		// not triggered, causing this script to recognise it as a failed collection.
 		delay(1000);
 
-		//ball_collected_limit = SensorValue(ball_limit)
-		//// if ball collected
-		//if (ball_collected_limit != 1){
-		//	writeDebugStreamLine("%s", "ball collected at limit switch!");
-		//	conveyor_reverse();
-		//	sleep(1000);
-		//	conveyor_stop();
-		//	return;
-		//}
-		//// if ball not collected
-		//else if (ball_collected_limit == 1){
-		//	writeDebugStreamLine("%s", "ball lost! Initate search for ball again...");
-		//	return;
-		//}
+		ball_collected_limit = SensorValue(ball_limit)
+		// if ball collected
+		if (ball_collected_limit != 1){
+			writeDebugStreamLine("%s", "ball collected at limit switch!");
+			motor(left_driver) = 0;
+			motor(right_driver) = 0;
+			conveyor_reverse();
+			sleep(1000);
+			conveyor_stop();
+			return;
+		}
+		// if ball not collected
+		else if (ball_collected_limit == 1){
+			writeDebugStreamLine("%s", "ball lost! Initate search for ball again...");
+			ball_found = 0;
+			return;
+		}
 	}
 }
