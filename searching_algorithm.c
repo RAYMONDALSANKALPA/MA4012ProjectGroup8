@@ -1,8 +1,8 @@
 void spinning_search()
 {
 		writeDebugStreamLine("%s", "spinning searching");
-    float rot_time = 4500;
-    float rot_spd = 100;
+    float rot_time = 6000;
+    float rot_spd = 60;
 
     // using sys timer
     // float start_time = nSysTime;
@@ -25,7 +25,7 @@ void spinning_search()
     // }
 
     // Rotate CW
-    motor(left_driver) = 0;
+    motor(left_driver) = -rot_spd;
     motor(right_driver) = rot_spd;
     while (1)
     {

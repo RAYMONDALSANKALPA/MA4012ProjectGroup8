@@ -17,10 +17,11 @@ void first_move()
     // loop
     while (1)
     {
+    		scan_ball();
         // move forward
         motor(left_driver) = move_spd;
         motor(right_driver) = move_spd;
-        scan_ball();
+
         if (ball_found == 1)
         {
             writeDebugStreamLine("%s", "ball found from starting procedure");

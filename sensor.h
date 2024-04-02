@@ -67,7 +67,7 @@ task sensor_calibration(){
 
 // sharp sensor parameter
 int top_detection_value = 357;
-int bottom_detection_value = 100;
+int bottom_detection_value = 60;
 
 // ball status
 int ball_found = 0;
