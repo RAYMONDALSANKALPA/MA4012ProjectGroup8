@@ -1,6 +1,6 @@
 // parameters for starting
 float move_time = 4500; // how long should the robot move forward when starting
-float move_spd = 30; // max speed in competition
+float move_spd = 50; // max speed in competition
 
 void first_move()
 {
@@ -17,10 +17,10 @@ void first_move()
     // loop
     while (1)
     {
+    		scan_ball();
         // move forward
-        motor(left_driver) = move_spd;
-        motor(right_driver) = move_spd;
-        scan_ball();
+       	forward(move_spd);
+
         if (ball_found == 1)
         {
             writeDebugStreamLine("%s", "ball found from starting procedure");
@@ -44,8 +44,7 @@ void first_move()
         // writeDebugStreamLine("%d", time_taken);
         if (time1(T2) > move_time)
         {
-            motor(left_driver) = 0;
-            motor(right_driver) = 0;
+            motor_stop();
             writeDebugStreamLine("%s", "motor stopped");
             ball_found = 0;
             return;
