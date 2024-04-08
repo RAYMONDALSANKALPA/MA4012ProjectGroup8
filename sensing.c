@@ -34,6 +34,16 @@ void searching(){
     }
 }
 
+void spinning_search(){
+    // Rotate clockwise until detection
+    turn_right();
+    if(SensorValue[ballsensor] > collection_threshold){
+        // light_blink_simple();
+        ball_collection();
+        wait1Msec(2000);
+    }
+}
+
 
 
 
