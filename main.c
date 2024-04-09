@@ -39,7 +39,7 @@ task main()
             		go_to_ball();
             		if (ball_collected_limit != 1){
             			// insert delivery mechanism
-            			delivery();
+            			dispense();
             		}
             		else if (ball_collected_limit ==1)ball_found = 0; // sends it back into ball_found searching loop
             }

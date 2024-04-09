@@ -10,7 +10,7 @@ void dispenser_test(){
 	dispensor_stop();
 }
 
-void delivery(){
+void dispense(){
 	backward(60);
 	while(1){
 		bumper_l = SensorValue(bumper_left);
