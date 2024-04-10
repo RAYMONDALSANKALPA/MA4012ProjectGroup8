@@ -51,8 +51,17 @@ int can_dispense_ball(){
 
 }
 
+void delivery_retry(){
+	// move back a bit
+	int motor_power = 80;
+	int motor_time = 1000;
+	backward_time(motor_power, motor_time);
+}
+
 void deliver_ball(){
 	int ball_delivered = 0; // ball not delivered yet
+	clearTimer(T4);
+	int delivery_time_limit = 7000; // 7 seconds
 	while (ball_delivered == 0){
 		// turn to delivery area direction
 		int direction = read_compass();
@@ -65,6 +74,12 @@ void deliver_ball(){
 		//check if can dispense
 		if (can_dispense_ball()){
 			ball_delivered = 1;
+		}
+
+		// Taking too long to deliver, need to retry
+		if (T4 > deliver_time_limit){
+			delivery_retry();// retry
+			clearTimer(T4);
 		}
 		//else keep trying!
 	}
