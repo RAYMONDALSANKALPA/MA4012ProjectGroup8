@@ -3,7 +3,7 @@ int ball_in_collection_range ;
 int count;
 //int prev_dist;
 int conveyor_speed = 300;
-int ball_collected_limit;
+int ball_collected_limit = SensorValue(ball_limit);
 //int ball_collected_limit = 0;
 
 // function to check if ball in collection range for neater code as it will be called multiple times

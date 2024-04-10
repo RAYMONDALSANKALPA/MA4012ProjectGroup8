@@ -45,10 +45,12 @@ task main()
 			go_to_ball();
 			if (ball_collected_limit != 1){
 				// insert delivery mechanism
-				writeDebugStreamLine("%s", "begin delivery mechanism");
+
 				stopTask(detect_boundary);
 				deliver_ball();
+				//writeDebugStreamLine("%d", ball_delivered);
 				if (ball_delivered == 1){
+					//writeDebugStreamLine("%s", "ball delivered");
 					startTask(detect_boundary);
 					first_move();
 				}
@@ -63,7 +65,8 @@ task main()
 				writeDebugStreamLine("%s", "ball not found, move forward and repeat search");
 				move_forward();
 			}
-			if (ball_collected_limit == 0) ball_found = 1;
+			writeDebugStreamLine("%d", ball_collected_limit);
+			if (SensorValue(ball_limit) == 0) ball_found = 1;
 		}
 	}
 }

@@ -25,7 +25,7 @@ int NUM_READINGS = 1;
 
 task sensor_calibration(){
 	while(1){
-
+	int ball_collected_limit = SensorValue(ball_limit);
 	total_efd = 0;
 	total_ebd = 0;
 	total_bl = 0;
@@ -41,7 +41,7 @@ task sensor_calibration(){
 		total_ebd += 29.98*pow((SensorValue(sharp_back_top)*0.0012207031), -1.173);
 		total_bl += 29.98*pow((SensorValue(sharp_bl)*0.0012207031), -1.173);
 		total_bs += 5.2819*pow((SensorValue(sharp_bs)*0.0012207031), -1.161);
-		delay(33);
+		delay(35);
 	}
 	avg_efd = total_efd/NUM_READINGS;
 	avg_ebd = total_ebd/NUM_READINGS;

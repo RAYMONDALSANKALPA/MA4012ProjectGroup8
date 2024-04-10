@@ -83,13 +83,13 @@ int can_dispense_ball(){
 		return 1;
 	}
 	else if (bumper_l != 1 && bumper_r == 1){  // left bumper pressed
-		turn_right_time(80, 100);
+		turn_right_time(60, 100);
 		// forward_time(80, 100);
 		motor_stop();
 		return 0;
 	}
 	else if (bumper_l == 1 && bumper_r != 1){  // right bumper pressed
-		turn_left_time(80, 100);
+		turn_left_time(60, 100);
 		// forward_time(80, 100);
 		motor_stop();
 		return 0;
@@ -161,7 +161,7 @@ void delivery_retry(){
 }
 
 void deliver_ball(){
-	int ball_delivered = 0; // ball not delivered yet
+	//int ball_delivered = 0; // ball not delivered yet, defined up top
 	clearTimer(T4);
 
 	while (ball_delivered == 0){
