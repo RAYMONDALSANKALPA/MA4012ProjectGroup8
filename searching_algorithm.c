@@ -13,7 +13,7 @@ void sweeping_search()
 		}
 		else
 		{
-			float rot_spd = 80;
+			float rot_spd = 100;
 
 			// using timer T1
 			clearTimer(T1);
@@ -88,7 +88,7 @@ void sweeping_search()
 void move_forward()
 {
 	writeDebugStreamLine("%s", "moving forward");
-	float motor_spd = 60;
+	float motor_spd = 1000;
 	clearTimer(T3);
 	// move forward
 	forward(motor_spd);

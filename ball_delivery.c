@@ -1,6 +1,6 @@
 int delivery_direction = 4; // south, but we are moving north by going backward
 int deliver_time_limit = 2000; // work till 10 seconds
-int delivery_movement_time = 50; // how much the robot will move before checking 
+int delivery_movement_time = 50; // how much the robot will move before checking
 int motor_power_fast = 80;
 int motor_power_slow = 40;
 
@@ -28,7 +28,7 @@ void move_to_delivery_area(){
 }
 
 void turn_to_delivery_area(){
-	int motor_power = 80;
+	int motor_power = 1000;
 	int direction = read_compass();
 	while (direction != delivery_direction){
 		if (direction < delivery_direction)
@@ -152,7 +152,7 @@ void deliver_ball(){
 
 		// check proximity to delivery area using the line sensors
 		if (is_near_delivery_area2() == 1){
-			
+
 			//check if can dispense
 			if (can_dispense_ball()){
 				dispense();

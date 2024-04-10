@@ -41,13 +41,13 @@ task sensor_calibration(){
 		total_ebd += 29.98*pow((SensorValue(sharp_back_top)*0.0012207031), -1.173);
 		total_bl += 29.98*pow((SensorValue(sharp_bl)*0.0012207031), -1.173);
 		total_bs += 5.2819*pow((SensorValue(sharp_bs)*0.0012207031), -1.161);
-		delay(40);
+		delay(32);
 	}
 	avg_efd = total_efd/NUM_READINGS;
 	avg_ebd = total_ebd/NUM_READINGS;
 	avg_bl = total_bl/NUM_READINGS;
 	avg_bs = total_bs/NUM_READINGS;
-	 writeDebugStreamLine("%f", avg_bl);
+	 //writeDebugStreamLine("%f", avg_bl);
 
 	//sleep(100);
 	}
@@ -55,7 +55,7 @@ task sensor_calibration(){
 
 // sharp sensor parameter
 int top_detection_value = 357;
-int bottom_detection_value = 60;
+int bottom_detection_value = 70;
 
 // ball status
 int ball_found = 0;

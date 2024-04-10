@@ -8,7 +8,7 @@ int ball_collected_limit;
 
 // function to check if ball in collection range for neater code as it will be called multiple times
 void check_ball_in_range(){
-	if (avg_bl < bottom_detection_value){ //long sensor in range and short sensor not in range(if both in range means enemy robot)
+	if (avg_bl < 200){ //long sensor in range and short sensor not in range(if both in range means enemy robot)
 		ball_in_collection_range = 1;
 		//writeDebugStreamLine("%s" ,"ball_in_collection_range");
 		return;
@@ -41,7 +41,8 @@ void go_to_ball(){
 			if (time1(T2) > 5000){
 			  writeDebugStreamLine("%s", "ball collection timeout! turning away and return to search");
 				ball_found = 0;
-				turn_left_time(80, 2000);
+				conveyor_stop();
+				//turn_left_time(80, 2000);
 				return;
 			}
 
@@ -90,6 +91,7 @@ void go_to_ball(){
 		else if (ball_collected_limit == 1){
 			writeDebugStreamLine("%s", "ball lost! Initate search for ball again...");
 			ball_found = 0;
+			conveyor_stop();
 			return;
 		}
 	}
