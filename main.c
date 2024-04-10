@@ -30,35 +30,40 @@
 
 task main()
 {
-		// threaded task that checks for sensor at all time
-		startTask(sensor_calibration);
-		startTask(detect_boundary);
-		// inital movement where we move half the field b4 executing spin search
-		first_move();
-    while(1)
-        {
-            if (ball_found == 1)
-            {
-                // ball collecion mechanism activate here
-           			writeDebugStreamLine("%s", "begin collection mechanism");
-            		//sleep(2000);
-            		go_to_ball();
-            		if (ball_collected_limit != 1){
-            			// insert delivery mechanism
-            		writeDebugStreamLine("%s", "begin delivery mechanism");
-            			deliver_ball();
-            		}
-            		else if (ball_collected_limit ==1)ball_found = 0; // sends it back into ball_found searching loop
-            }
-            else if (ball_found == 0)
-            {
-
-                sweeping_search();
-                if (ball_found == 0)
-                {
-                    writeDebugStreamLine("%s", "ball not found, move forward and repeat search");
-                    move_forward();
-                }
-            }
-        }
+	// threaded task that checks for sensor at all time
+	startTask(sensor_calibration);
+	startTask(detect_boundary);
+	// inital movement where we move half the field b4 executing spin search
+	first_move();
+	while(1)
+	{
+		if (ball_found == 1)
+		{
+			// ball collecion mechanism activate here
+			writeDebugStreamLine("%s", "begin collection mechanism");
+			//sleep(2000);
+			go_to_ball();
+			if (ball_collected_limit != 1){
+				// insert delivery mechanism
+				writeDebugStreamLine("%s", "begin delivery mechanism");
+				stopTask(detect_boundary);
+				deliver_ball();
+				if (ball_delivered == 1){
+					startTask(detect_boundary);
+					first_move();
+				}
+			}
+			else if (ball_collected_limit ==1)ball_found = 0; // sends it back into ball_found searching loop
+		}
+		else if (ball_found == 0)
+		{
+			sweeping_search();
+			if (ball_found == 0)
+			{
+				writeDebugStreamLine("%s", "ball not found, move forward and repeat search");
+				move_forward();
+			}
+			if (ball_collected_limit == 0) ball_found = 1;
+		}
+	}
 }

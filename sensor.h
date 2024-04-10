@@ -41,7 +41,7 @@ task sensor_calibration(){
 		total_ebd += 29.98*pow((SensorValue(sharp_back_top)*0.0012207031), -1.173);
 		total_bl += 29.98*pow((SensorValue(sharp_bl)*0.0012207031), -1.173);
 		total_bs += 5.2819*pow((SensorValue(sharp_bs)*0.0012207031), -1.161);
-		delay(32);
+		delay(33);
 	}
 	avg_efd = total_efd/NUM_READINGS;
 	avg_ebd = total_ebd/NUM_READINGS;
@@ -97,10 +97,13 @@ int read_compass()			// read compass value and return the direction
 	//    WEST,               // 6
 	//    NORTH_WEST,         // 7
 	int north = 0;
+	int northeast = 1;
 	int east = 2;
+	int southeast = 3;
 	int south = 4;
 	int southwest = 5;
 	int west = 6;
+	int northwest = 7;
 	// TODO: fix this stupid code
     int pin1 = SensorValue(compass1);
     int pin2 = SensorValue(compass2);
@@ -118,11 +121,17 @@ int read_compass()			// read compass value and return the direction
 
 	// convert the above if else statement to switch case
 	switch (combination){
-		case 1110:
+		case 1100:
 			compass_dir = north;
+			break;
+		case 1101:
+			compass_dir = northeast;
 			break;
 		case 1010:
 			compass_dir = east;
+			break;
+		case 1001:
+			compass_dir = southeast;
 			break;
 		case 1011:
 			compass_dir = south;
@@ -130,12 +139,15 @@ int read_compass()			// read compass value and return the direction
 		case 0011:
 			compass_dir = southwest;
 			break;
-		case 0111:
+		case 0110:
 			compass_dir = west;
 			break;
-		default:
-			compass_dir = 100; // error!
+		case 1110:
+			compass_dir = northwest;
 			break;
+		//default:
+		//	compass_dir = 100; // error!
+		//	break;
 	}
 
 	return compass_dir;

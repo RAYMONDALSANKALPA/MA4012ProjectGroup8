@@ -91,6 +91,8 @@ void go_to_ball(){
 		else if (ball_collected_limit == 1){
 			writeDebugStreamLine("%s", "ball lost! Initate search for ball again...");
 			ball_found = 0;
+			conveyor_reverse(conveyor_speed);
+			sleep(1000);
 			conveyor_stop();
 			return;
 		}
