@@ -13,7 +13,6 @@ void dispense(){
 	dispensor_stop();
 }
 
-
 void move_to_delivery_area(){
 	int motor_power = 80;
 	int motor_time = 1000;
@@ -70,11 +69,4 @@ void deliver_ball(){
 		//else keep trying!
 	}
 
-}
-
-void dispense_movement(){
-	backward(60);
-	while(1){
-
-	}
 }
