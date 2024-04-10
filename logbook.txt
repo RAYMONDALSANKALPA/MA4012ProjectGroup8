@@ -44,3 +44,11 @@ Stages:
 Searching-> move till ball sensor reaches value of avg of 224 and 666 =         445 
 Closing-> keep moving such that the ball is found, comparing the values
 Collection-> ball is ready for collection! value more that                      1200
+
+
+iteration 1
+Delivery algorithm
+While ball not delivered, 
+turn to delivery area
+move to delivery area
+check if delivery can be made

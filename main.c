@@ -6,6 +6,10 @@
 #pragma config(Sensor, dgtl2,  back_l_line,    sensorDigitalIn)
 #pragma config(Sensor, dgtl3,  front_r_line,   sensorDigitalIn)
 #pragma config(Sensor, dgtl4,  front_l_line,   sensorDigitalIn)
+#pragma config(Sensor, dgtl5,  compass1,       sensorDigitalIn)
+#pragma config(Sensor, dgtl6,  compass2,       sensorDigitalIn)
+#pragma config(Sensor, dgtl7,  compass3,       sensorDigitalIn)
+#pragma config(Sensor, dgtl8,  compass4,       sensorDigitalIn)
 #pragma config(Sensor, dgtl10, bumper_left,    sensorDigitalIn)
 #pragma config(Sensor, dgtl11, bumper_right,   sensorDigitalIn)
 #pragma config(Sensor, dgtl12, ball_limit,     sensorDigitalIn)
@@ -17,41 +21,46 @@
 
 #include "sensor.h"
 #include "movement.h"
-#include "startup.c"
-#include "searching_algorithm.c"
-#include "ball_collection.c"
+//#include "startup.c"
+//#include "searching_algorithm.c"
+//#include "ball_collection.c"
 #include "ball_delivery.c"
+
+// Ensure distance sensor is 100+ to 200 (should be around 180)
 
 
 task main()
 {
 		// threaded task that checks for sensor at all time
-		startTask(sensor_calibration);
+		//startTask(sensor_calibration);
 		// inital movement where we move half the field b4 executing spin search
-		first_move();
+		//first_move();
+
+	deliver_ball();
+
     while(1)
         {
-            if (ball_found == 1)
-            {
-                // ball collecion mechanism activate here
-           			writeDebugStreamLine("%s", "begin collection mechanism");
-            		sleep(2000);
-            		go_to_ball();
-            		if (ball_collected_limit != 1){
-            			// insert delivery mechanism
-            			dispense();
-            		}
-            		else if (ball_collected_limit ==1)ball_found = 0; // sends it back into ball_found searching loop
-            }
-            else if (ball_found == 0)
-            {
+            //if (ball_found == 1)
+            //{
+            //    // ball collecion mechanism activate here
+           	//		writeDebugStreamLine("%s", "begin collection mechanism");
+            //		sleep(2000);
+            //		go_to_ball();
+            //		if (ball_collected_limit != 1){
+            //			// insert delivery mechanism
+            //            deliver_ball();
+            //		}
+            //		else if (ball_collected_limit ==1)ball_found = 0; // sends it back into ball_found searching loop
+            //}
+            //else if (ball_found == 0)
+            //{
 
-                sweeping_search();
-                if (ball_found == 0)
-                {
-                    writeDebugStreamLine("%s", "ball not found, move forward and repeat search");
-                    move_forward();
-                }
-            }
+            //    sweeping_search();
+            //    if (ball_found == 0)
+            //    {
+            //        writeDebugStreamLine("%s", "ball not found, move forward and repeat search");
+            //        move_forward();
+            //    }
+           //int dir = read_compass();
         }
 }

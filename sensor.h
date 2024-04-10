@@ -1,17 +1,3 @@
-// enum
-//enum Orientation
-//{
-//    NORTH,              // 0
-//    NORTH_EAST,         // 1
-//    EAST,               // 2
-//    SOUTH_EAST,         // 3
-//    SOUTH,              // 4
-//    SOUTH_WEST,         // 5
-//    WEST,               // 6
-//    NORTH_WEST,         // 7
-//    INVALID_COMBINATION // 8
-//};
-
 //enum BoundarySide
 //{
 //    FRONT_LEFT,
@@ -74,10 +60,6 @@ int bottom_detection_value = 70;
 int ball_found = 0;
 //int ball_collected = 0;
 
-//// compass status
-//int compass_status;
-//int goal_compass_status;
-
 //// limit_switch_status
 //int dispense_limit_status;
 //int dispense_limit_switch_voltage; // analog
@@ -100,6 +82,70 @@ void scan_ball()
         ball_found = 0;
         return;
     }
+}
+
+int read_compass()			// read compass value and return the direction
+{
+	// Convention of choosing direction
+	//    NORTH,              // 0
+	//    NORTH_EAST,         // 1
+	//    EAST,               // 2
+	//    SOUTH_EAST,         // 3
+	//    SOUTH,              // 4
+	//    SOUTH_WEST,         // 5
+	//    WEST,               // 6
+	//    NORTH_WEST,         // 7
+	int north = 0;
+	int east = 2;
+	int south = 4;
+	int southwest = 5;
+	int west = 6;
+	// TODO: fix this stupid code
+    int pin1 = SensorValue(compass1);
+    int pin2 = SensorValue(compass2);
+    int pin3 = SensorValue(compass3);
+    int pin4 = SensorValue(compass4);
+    int combination = pin1 * 1000 + pin2 * 100 + pin3 * 10 + pin4;
+	int compass_dir;
+	
+	// if (combination == 1011){ // south
+	// 	compass_dir = south;
+	// }
+	// else{
+	// 	compass_dir = 0;
+	// }
+
+	// convert the above if else statement to switch case
+	switch (combination){
+		case 1110:
+			compass_dir = north;
+			break;
+		case 1010:
+			compass_dir = east;
+			break;
+		case 1011:
+			compass_dir = south;
+			break;
+		case 0011:
+			compass_dir = southwest;
+			break;
+		case 0111:
+			compass_dir = west;
+			break;
+		default:
+			compass_dir = 100; // error!
+			break;
+	}
+
+	return compass_dir;
+}
+
+void compass_test(){
+	while(1){
+		int compass_dir = read_compass();
+		printf("Compass direction: %d\n", compass_dir);
+		wait1Msec(1000);
+	}
 }
 
 //void read_short_sharp()
@@ -172,42 +218,3 @@ void scan_ball()
 //    }
 //}
 
-// void read_compass()
-// {
-//     int pin1 = SensorValue(compass1);
-//     int pin2 = SensorValue(compass2);
-//     int pin3 = SensorValue(compass3);
-//     int pin4 = SensorValue(compass4);
-//     int combination = pin1 * 1000 + pin2 * 100 + pin3 * 10 + pin4;
-
-//     switch (combination)
-//     {
-//     case 1110:
-//         compass_status = NORTH;
-//         return;
-//     case 1100:
-//         compass_status = NORTH_EAST;
-//         return;
-//     case 1101:
-//         compass_status = EAST;
-//         return;
-//     case 1001:
-//         compass_status = SOUTH_EAST;
-//         return;
-//     case 1011:
-//         compass_status = SOUTH;
-//         return;
-//     case 0011:
-//         compass_status = SOUTH_WEST;
-//         return;
-//     case 0111:
-//         compass_status = WEST;
-//         return;
-//     case 0110:
-//         compass_status = NORTH_WEST;
-//         return;
-//     default:
-//         compass_status = INVALID_COMBINATION;
-//         return;
-//     }
-// }
