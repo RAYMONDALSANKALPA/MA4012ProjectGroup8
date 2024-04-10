@@ -1,6 +1,6 @@
 // parameters for starting
-float move_time = 4500; // how long should the robot move forward when starting
-float move_spd = 50; // max speed in competition
+float move_time = 2000; // how long should the robot move forward when starting
+float move_spd = 80; // max speed in competition
 
 void first_move()
 {

@@ -1,6 +1,6 @@
 int delivery_direction = 4; // south, but we are moving north by going backward
 int deliver_time_limit = 2000; // work till 10 seconds
-int delivery_movement_time = 100; // how much the robot will move before checking 
+int delivery_movement_time = 100; // how much the robot will move before checking
 int motor_power_fast = 80;
 int motor_power_slow = 40;
 int near_delivery_turn_time = 100;
@@ -10,7 +10,7 @@ int wait_between_functions_for_debug = 2000;
 int bumper_l;
 int bumper_r;
 
-void dispense(){	
+void dispense(){
 	int motor_power = 100;
 	int motor_time = 250;
 	dispensor_forward_time(motor_power, motor_time);
@@ -46,7 +46,7 @@ int can_dispense_ball(){
 	bumper_l = SensorValue(bumper_left);
 	bumper_r = SensorValue(bumper_right);
 
-	//if only 
+	//if only
 	if(bumper_l != 1 && bumper_r != 1){  // both bumpers are pressed
 		motor_stop();
 		return 1;
@@ -69,36 +69,35 @@ int can_dispense_ball(){
 
 }
 
-int is_near_delivery_area(){
-	// check if the robot is near the delivery area using the line sensors
-    int line_BL = SensorValue(IR_BL); // sensor value of 0 means it is on the line
-    int line_BR = SensorValue(IR_BR);
+//int is_near_delivery_area(){
+//	// check if the robot is near the delivery area using the line sensors
+//    int line_BL = SensorValue(IR_BL); // sensor value of 0 means it is on the line
+//    int line_BR = SensorValue(IR_BR);
 
-	if (line_BL == 0 && line_BR == 0){
-		// the robot is near the delivery area
-		// backward(motor_power_slow);
-		motor_stop();
-		return 1;
-	}
-	else if(line_BL == 0 && line_BR != 0){
-		// the robot is nearing the area at an angle, BL is touchnig
-		forward_time(motor_power_slow, near_delivery_turn_time);
-		turn_right_time(motor_power_slow, near_delivery_turn_time);
-		motor_stop();
-		return 0;
-	}
-	else if(line_BL != 0 && line_BR == 0){
-		// the robot is near the delivery area
-		forward_time(motor_power_slow, near_delivery_turn_time);
-		turn_left_time(motor_power_slow, near_delivery_turn_time);
-		motor_stop();
-		return 0;
-	}
-	else{
-		return 0;
-	}
-
-}
+//	if (line_BL == 0 && line_BR == 0){
+//		// the robot is near the delivery area
+//		// backward(motor_power_slow);
+//		motor_stop();
+//		return 1;
+//	}
+//	else if(line_BL == 0 && line_BR != 0){
+//		// the robot is nearing the area at an angle, BL is touchnig
+//		forward_time(motor_power_slow, near_delivery_turn_time);
+//		turn_right_time(motor_power_slow, near_delivery_turn_time);
+//		motor_stop();
+//		return 0;
+//	}
+//	else if(line_BL != 0 && line_BR == 0){
+//		// the robot is near the delivery area
+//		forward_time(motor_power_slow, near_delivery_turn_time);
+//		turn_left_time(motor_power_slow, near_delivery_turn_time);
+//		motor_stop();
+//		return 0;
+//	}
+//	else{
+//		return 0;
+//	}
+//}
 
 void delivery_retry(){
 	// move back a bit
@@ -112,19 +111,19 @@ void deliver_ball(){
 	clearTimer(T4);
 
 	while (ball_delivered == 0){
-		
+
 		// turn to delivery area direction
 		int direction = read_compass();
 		if (direction != delivery_direction){
 			turn_to_delivery_area();
 		}
-		
+
 		// move_to_delivery_area
 		move_to_delivery_area();
 
 		// check proximity to delivery area using the line sensors
 		// if (is_near_delivery_area() == 1){
-			
+
 		// 	// dispense();
 		// 	// motor_stop();
 		// 	// ball_delivered  = 1;
@@ -143,7 +142,7 @@ void deliver_ball(){
 			}
 
 		// // Taking too long to deliver, need to retry
-		if (T4 > deliver_time_limit){
+		if (time1(T4) > deliver_time_limit){
 			delivery_retry();// retry
 			clearTimer(T4);
 		}

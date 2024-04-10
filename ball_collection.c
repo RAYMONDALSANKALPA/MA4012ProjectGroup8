@@ -33,10 +33,17 @@ void go_to_ball(){
 	while(1){
 		count = 0;
 		check_ball_in_range();
+		clearTimer(T2);
 		while (ball_in_collection_range == 1){
 			check_ball_in_range();
 			forward(60);
 			conveyor_start(conveyor_speed);
+			if (time1(T2) > 5000){
+			  writeDebugStreamLine("%s", "ball collection timeout! turning away and return to search");
+				ball_found = 0;
+				turn_left_time(80, 2000);
+				return;
+			{
 
 
 			// kinda optional code to optimise by ensuring that we are closing the distance between robot and ball(can increase count for btr comparison)
@@ -69,6 +76,7 @@ void go_to_ball(){
 		}
 
 		ball_collected_limit = SensorValue(ball_limit);
+		//ball_collected_limit = 0;
 		// if ball collected
 		if (ball_collected_limit != 1){
 			writeDebugStreamLine("%s", "ball collected at limit switch!");

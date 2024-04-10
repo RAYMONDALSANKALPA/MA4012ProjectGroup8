@@ -13,11 +13,11 @@ void sweeping_search()
 		}
 		else
 		{
-			float rot_spd = 55;
+			float rot_spd = 80;
 
 			// using timer T1
 			clearTimer(T1);
-			while (time1(T1) < 2000 && ball_found == 0)
+			while (time1(T1) < 1000 && ball_found == 0)
 			{
 				// Rotate left
 				turn_left(rot_spd);
@@ -25,7 +25,7 @@ void sweeping_search()
 			}
 			clearTimer(T1);
 
-			while (time1(T1) < 3000 && ball_found == 0)
+			while (time1(T1) < 2000 && ball_found == 0)
 			{
 				// Rotate right
 				turn_right(rot_spd);
@@ -33,7 +33,7 @@ void sweeping_search()
 			}
 			clearTimer(T1);
 
-			while (time1(T1) < 1150 && ball_found == 0)
+			while (time1(T1) < 1000 && ball_found == 0)
 			{
 				// Rotate left
 				turn_left(rot_spd);

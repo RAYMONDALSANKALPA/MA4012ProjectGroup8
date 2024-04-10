@@ -62,8 +62,8 @@ void avoid_boundaries(int sensor_number)
 	}
 
 	if (array_element != 4) {
-		hogCPU();
-		writeDebugStreamLine("%d", array_element);
+		//hogCPU();
+		writeDebugStreamLine("boundary detected");
 
 		int move[] = {-80, -80, 80, 80};
 		int rotate_left[] = {80, -80, 80, -80};
@@ -78,7 +78,7 @@ void avoid_boundaries(int sensor_number)
 	  	control_motor(rotate_left[array_element], rotate_right[array_element]);
 	  }
 	  stop_motor();
-	  releaseCPU();
+	  //releaseCPU();
 	}
 }
 
@@ -87,6 +87,6 @@ task detect_boundary()
 	while (true){
 		int boundary_value = scan_boundary();
 		avoid_boundaries(boundary_value);
-		writeDebugStreamLine("%d", boundary_value);
+		//writeDebugStreamLine("%d", boundary_value);
 	}
 }
