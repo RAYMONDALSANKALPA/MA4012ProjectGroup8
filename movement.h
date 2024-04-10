@@ -52,10 +52,10 @@ void dispensor_stop(){
     motor[dispenser_driver] = 0;
 }
 
-//void forward_time (int motor_power, int motor_time){
-//    forward(motor_power);
-//    wait1Msec(motor_time);
-//}
+void forward_time (int motor_power, int motor_time){
+   forward(motor_power);
+   wait1Msec(motor_time);
+}
 
 void backward_time (int motor_power, int motor_time){
     backward(motor_power);
@@ -67,10 +67,10 @@ void turn_left_time (int motor_power, int motor_time){
     wait1Msec(motor_time);
 }
 
-//void turn_right_time (int motor_power, int motor_time){
-//    turn_right(motor_power);
-//    wait1Msec(motor_time);
-//}
+void turn_right_time (int motor_power, int motor_time){
+   turn_right(motor_power);
+   wait1Msec(motor_time);
+}
 
 //void conveyor_forward_time(int motor_power, int motor_time){
 //    conveyor_start(motor_power);
