@@ -6,10 +6,10 @@
 #pragma config(Sensor, dgtl2,  IR_BL,    sensorDigitalIn)
 #pragma config(Sensor, dgtl3,  IR_FR,   sensorDigitalIn)
 #pragma config(Sensor, dgtl4,  IR_FL,   sensorDigitalIn)
-#pragma config(Sensor, dgtl5,  compass1,       sensorDigitalIn)
+#pragma config(Sensor, dgtl5,  compass1,       sensorDigitalIn) //
 #pragma config(Sensor, dgtl6,  compass2,       sensorDigitalIn)
 #pragma config(Sensor, dgtl7,  compass3,       sensorDigitalIn)
-#pragma config(Sensor, dgtl8,  compass4,       sensorDigitalIn)
+#pragma config(Sensor, dgtl8,  compass4,       sensorDigitalIn) // yellow of the compass goes here
 #pragma config(Sensor, dgtl10, bumper_left,    sensorDigitalIn)
 #pragma config(Sensor, dgtl11, bumper_right,   sensorDigitalIn)
 #pragma config(Sensor, dgtl12, ball_limit,     sensorDigitalIn)
