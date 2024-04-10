@@ -34,7 +34,7 @@ void turn_to_delivery_area(){
 	// direction should be correct now
 }
 
-bool can_dispense_ball(){
+int can_dispense_ball(){
 	bumper_l = SensorValue(bumper_left);
 	bumper_r = SensorValue(bumper_right);
 
@@ -42,10 +42,10 @@ bool can_dispense_ball(){
 	if(bumper_l != 1 && bumper_r != 1){
 		motor_stop();
 		dispense();
-		return True;
+		return 1;
 	}
 	else{
-		return False;
+		return 0;
 	
 	}
 
