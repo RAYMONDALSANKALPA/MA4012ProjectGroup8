@@ -15,7 +15,7 @@ void dispense(){
 
 void move_to_delivery_area(){
 	int motor_power = 80;
-	int motor_time = 1000;
+	int motor_time = 500;
 	backward_time(motor_power, motor_time);
 }
 
@@ -25,7 +25,11 @@ void turn_to_delivery_area(){
 	int direction = read_compass();
 	while (direction != delivery_direction){
 		// TODO: improve this after figuring out the correct direction
-		turn_left(motor_power);
+		if (direction < delivery_direction)
+			turn_right(motor_power);
+		else{
+			turn_left(motor_power);
+		}
 		direction = read_compass();
 	}
 	turn_left_time(motor_power, left_turn_adjust_time);
@@ -39,14 +43,22 @@ int can_dispense_ball(){
 	bumper_r = SensorValue(bumper_right);
 
 	//if only 
-	if(bumper_l != 1 && bumper_r != 1){
+	if(bumper_l != 1 && bumper_r != 1){  // both bumpers are pressed
 		motor_stop();
-		dispense();
 		return 1;
+	}
+	else if (bumper_l != 1 && bumper_r == 1){  // left bumper pressed
+		turn_right_time(80, 100);
+		motor_stop();
+		return 0;
+	}
+	else if (bumper_l == 1 && bumper_r != 1){  // right bumper pressed
+		turn_left_time(80, 100);
+		motor_stop();
+		return 0;
 	}
 	else{
 		return 0;
-	
 	}
 
 }
@@ -55,7 +67,7 @@ void delivery_retry(){
 	// move back a bit
 	int motor_power = 80;
 	int motor_time = 1000;
-	backward_time(motor_power, motor_time);
+	forward_time(motor_power, motor_time);
 }
 
 void deliver_ball(){
@@ -73,6 +85,7 @@ void deliver_ball(){
 
 		//check if can dispense
 		if (can_dispense_ball()){
+			dispense();
 			ball_delivered = 1;
 		}
 
