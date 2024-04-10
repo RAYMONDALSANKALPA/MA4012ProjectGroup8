@@ -43,7 +43,7 @@ void go_to_ball(){
 				ball_found = 0;
 				turn_left_time(80, 2000);
 				return;
-			{
+			}
 
 
 			// kinda optional code to optimise by ensuring that we are closing the distance between robot and ball(can increase count for btr comparison)
