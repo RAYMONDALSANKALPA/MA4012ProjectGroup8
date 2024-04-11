@@ -25,7 +25,8 @@
 #include "searching_algorithm.c"
 #include "ball_collection.c"
 #include "ball_delivery.c"
-#include "IR_Code.c"
+#include "detect_boundary.c"
+#include "detect_opponent.c"
 
 
 task main()
@@ -33,6 +34,7 @@ task main()
 	// threaded task that checks for sensor at all time
 	startTask(sensor_calibration);
 	startTask(detect_boundary);
+	startTask(detect_opponent);
 	// inital movement where we move half the field b4 executing spin search
 	first_move();
 	while(1)

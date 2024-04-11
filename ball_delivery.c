@@ -156,7 +156,7 @@ int is_near_delivery_area2(){
 void delivery_retry(){
 	// move back a bit
 	int motor_power = 1000;
-	int motor_time = 1000;
+	int motor_time = 2000;
 	forward_time(motor_power, motor_time);
 }
 
@@ -186,13 +186,13 @@ void deliver_ball(){
 			}
 		//}
 
-		// Taking too long to deliver, need to retry
-		//if (time1(T4) > deliver_time_limit){
-		//	delivery_retry();// retry
-		//	clearTimer(T4);
-		//	writeDebugStreamLine("%s", "retry delivery");
-		//}
-		// //else keep trying!
+		// Taking too long to deliver, need to retry (needa test irl)
+		if (time1(T4) > deliver_time_limit){
+			delivery_retry();// retry
+			clearTimer(T4);
+			writeDebugStreamLine("%s", "retry delivery");
+		}
+		 //else keep trying!
 	}
 	//if (ball_delivered == 1) first_move();
 }
