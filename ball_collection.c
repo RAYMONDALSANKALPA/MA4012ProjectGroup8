@@ -42,7 +42,7 @@ void go_to_ball(){
 			  writeDebugStreamLine("%s", "ball collection timeout! turning away and return to search");
 				ball_found = 0;
 				conveyor_stop();
-				//turn_left_time(80, 2000);
+				turn_left_time(1000, 2000);
 				return;
 			}
 

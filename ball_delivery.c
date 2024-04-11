@@ -41,7 +41,7 @@ int bumper_r;
 
 void dispense(){
 	int motor_power = 100;
-	int motor_time = 250;
+	int motor_time = 500;
 	dispensor_forward_time(motor_power, motor_time);
 	dispensor_stop();
 	dispensor_backward_time(motor_power, motor_time);
@@ -58,16 +58,24 @@ void move_to_delivery_area(){
 void turn_to_delivery_area(){
 	int motor_power = 1000;
 	int direction = read_compass();
+	int calibrate_compass_l = 0;
 	//writeDebugStreamLine("%d", direction);
 	while (direction != delivery_direction){
 			//writeDebugStreamLine("%d", direction);
-		if (direction < delivery_direction)
+		if (direction < delivery_direction){
 			turn_right(motor_power);
+
+		}
 		else{
 			turn_left(motor_power);
+			calibrate_compass_l = 1;
 		}
 		direction = read_compass();
 	}
+	if (calibrate_compass_l == 1){
+	turn_left_time(motor_power, 300);
+
+}
 	motor_stop();
 
 	// direction should be correct now
@@ -182,7 +190,7 @@ void deliver_ball(){
 			if (can_dispense_ball()){
 				dispense();
 				motor_stop();
-				ball_delivered = 1;
+				ball_delivered = 0;
 			}
 		//}
 
@@ -199,10 +207,6 @@ void deliver_ball(){
 
 //task main(){
 //	while(1){
-//				if (can_dispense_ball()){
-//				dispense();
-//				motor_stop();
-//				//ball_delivered  = 1;
+//				deliver_ball();
 //			}
 //		}
-//}
