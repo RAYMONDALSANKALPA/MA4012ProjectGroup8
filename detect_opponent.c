@@ -3,7 +3,6 @@ int scan_opponent ()
 	int frontOpponent = 0;
 	int backOpponent = 0;
 
-	//Detect front enemy disabled, to enable ball_limit == 1
 	//if (avg_efd < 35 && SensorValue(ball_limit) == 1) {
 	//	frontOpponent = 1;
 	//}
@@ -17,13 +16,14 @@ int scan_opponent ()
 void avoid_opponent (int opponent_range)
 {
 	if (opponent_range != 0) {
-		writeDebugStreamLine("%d", opponent_range);
+		writeDebugStreamLine("%s", "detect enemy");
+		//writeDebugStreamLine("%d", opponent_range);
 
 		int move[] = {0, -300, 300};
 		int rotate_left[] = {-100, 100, -100, 100};
 		int rotate_right[] = {100, -100, 100, -100};
 		int direction = random(3);
-		writeDebugStreamLine("%d", direction);
+		//writeDebugStreamLine("%d", direction);
 
 		clearTimer(T1);
 		while (time1(T1) < 1200)

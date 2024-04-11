@@ -56,10 +56,10 @@ void move_to_delivery_area(){
 }
 
 void turn_to_delivery_area(){
-	int motor_power = 1000;
+	int motor_power = 80;
 	int direction = read_compass();
 	int calibrate_compass_l = 0;
-	//writeDebugStreamLine("%d", direction);
+	writeDebugStreamLine("%d", direction);
 	while (direction != delivery_direction){
 			//writeDebugStreamLine("%d", direction);
 		if (direction < delivery_direction){
@@ -196,9 +196,9 @@ void deliver_ball(){
 
 		// Taking too long to deliver, need to retry (needa test irl)
 		if (time1(T4) > deliver_time_limit){
+			writeDebugStreamLine("%s", "retry delivery");
 			delivery_retry();// retry
 			clearTimer(T4);
-			writeDebugStreamLine("%s", "retry delivery");
 		}
 		 //else keep trying!
 	}

@@ -83,7 +83,7 @@ void go_to_ball(){
 			writeDebugStreamLine("%s", "ball collected at limit switch!");
 			motor_stop();
 			conveyor_reverse(conveyor_speed);
-			sleep(1000);
+			sleep(500);
 			conveyor_stop();
 			return;
 		}

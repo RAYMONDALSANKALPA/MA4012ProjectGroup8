@@ -62,8 +62,9 @@ void avoid_boundaries(int sensor_number)
 	}
 
 	if (array_element != 4) {
+		if (SensorValue(ball_limit) == 0 && read_compass() == 4) return;
 		hogCPU();
-		writeDebugStreamLine("%d", array_element);
+		writeDebugStreamLine("%s", "boundary detected!");
 
 		int move[] = {-300, -300, 300, 300};
 		int rotate_left[] = {100, -100, -100, 100};
