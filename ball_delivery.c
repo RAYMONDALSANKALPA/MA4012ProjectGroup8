@@ -56,23 +56,30 @@ void move_to_delivery_area(){
 void turn_to_delivery_area(){
 	int motor_power = 80;
 	int direction = read_compass();
-	int calibrate_compass_r = 0;
+	int calibrate_compass_l = 0;
 	//writeDebugStreamLine("%d", direction);
 	while (direction != delivery_direction){
 		//writeDebugStreamLine("%d", direction);
 		if (direction < delivery_direction){
 			turn_right(motor_power);
-			calibrate_compass_r = 1;
+			stop_motor();
+			sleep(200);
+
 		}
 		else{
 			turn_left(motor_power);
+			stop_motor();
+			sleep(200);
+			calibrate_compass_l = 1;
 		}
 		direction = read_compass();
 	}
 	// edit this for compass calibration. hard coded and i only did one side for now
-	if (calibrate_compass_r == 1){
-		//writeDebugStreamLine("%d", calibrate_compass_r);
-		turn_right_time(motor_power, 90);
+	if (calibrate_compass_l == 1){
+		writeDebugStreamLine("%d", calibrate_compass_l);
+		turn_left_time(motor_power, 200);
+		stop_motor();
+		sleep(200);
 
 	}
 	motor_stop();
