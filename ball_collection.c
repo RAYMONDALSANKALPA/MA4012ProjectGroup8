@@ -31,7 +31,7 @@ void go_to_ball(){
 			forward(60);
 			conveyor_start(conveyor_speed);
 			if (time1(T2) > 5000){
-			  writeDebugStreamLine("%s", "ball collection timeout! turning away and return to search");
+			  	writeDebugStreamLine("%s", "ball collection timeout! turning away and return to search");
 				ball_found = 0;
 				conveyor_stop();
 				turn_left_time(1000, 2000);

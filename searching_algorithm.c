@@ -1,10 +1,21 @@
 // parameters for movement
-int normal_sweep_rot_speed = 35;
+// int normal_sweep_rot_speed = 70;
+
+int normal_sweep_rot_speed = 32;
 int mini_sweep_rot_speed = 25;
-int forward_search_speed = 1000;
+int forward_search_speed = 127;
+int normal_sweep_rot_time = 3000;
 
 // ball status
 int prev_status = 0;
+
+void wait_while_sweep(){
+	// wait1Msec(100);
+	// motor_stop()
+	// wait1Msec(200);
+	writeDebugStreamLine("%s %f %s %d", "distance ", avg_bl, "ball found: ", ball_found );
+
+}
 
 void normal_sweep()
 {
@@ -13,24 +24,30 @@ void normal_sweep()
 
 			// using timer T1
 			clearTimer(T3);
-			while (time1(T3) < 1500 && ball_found == 0)
+			while (time1(T3) < normal_sweep_rot_time && ball_found == 0)
 			{
 				// Rotate left
+				writeDebugStreamLine("%s", "turn right");
 				turn_right(rot_spd);
+				wait_while_sweep();
 				scan_ball();
 			}
 			clearTimer(T3);
-			while (time1(T3) < 3000 && ball_found == 0)
+			while (time1(T3) < 2*normal_sweep_rot_time && ball_found == 0)
 			{
 				// Rotate right
+				writeDebugStreamLine("%s", "turn left");
 				turn_left(rot_spd);
+				wait_while_sweep();
 				scan_ball();
 			}
 			clearTimer(T3);
-			while (time1(T3) < 1500 && ball_found == 0)
+			while (time1(T3) < normal_sweep_rot_time && ball_found == 0)
 			{
 				// Rotate left
+				writeDebugStreamLine("%s", "turn right 2");
 				turn_right(rot_spd);
+				wait_while_sweep();
 				scan_ball();
 			}
 			return;
@@ -79,7 +96,7 @@ void move_forward()
 		scan_ball();
 		if (ball_found == 1)
 		{
-			motor_stop();
+			// motor_stop(); // removing this for now for smoother
 			writeDebugStreamLine("%s", "ball found in moving forward");
 			return;
 		}

@@ -43,8 +43,9 @@ void scan_ball()
 {
     if (avg_bl < bottom_detection_value)
     {
-    				motor_stop();
+    		motor_stop();
             ball_found = 1;
+			writeDebugStreamLine("%s", "ball found");
             return;
     }
    	else
