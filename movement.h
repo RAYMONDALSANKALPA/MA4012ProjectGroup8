@@ -81,3 +81,21 @@ void dispensor_backward_time(int motor_power, int motor_time){
     dispensor_backward(motor_power);
     wait1Msec(motor_time);
 }
+
+void movement_test(){
+    int motor_power = 50;
+    int motor_time = 500;
+    int bw_time = motor_time;
+    forward_time(motor_power, motor_time);
+    motor_stop();
+    sleep(1000);
+    backward_time(motor_power, motor_time);
+    motor_stop();
+    sleep(bw_time);
+    turn_left_time(motor_power, motor_time);
+    motor_stop();
+    sleep(bw_time);
+    turn_right_time(motor_power, motor_time);
+    motor_stop();
+    sleep(bw_time);
+}

@@ -1,10 +1,15 @@
+// parameters for movement
+int normal_sweep_rot_speed = 35;
+int mini_sweep_rot_speed = 25;
+int forward_search_speed = 1000;
+
 // ball status
 int prev_status = 0;
 
 void normal_sweep()
 {
 			writeDebugStreamLine("%s", "normal sweep");
-			float rot_spd = 35;
+			float rot_spd = normal_sweep_rot_speed;
 
 			// using timer T1
 			clearTimer(T3);
@@ -34,7 +39,7 @@ void normal_sweep()
 void mini_sweep()
 {
 			writeDebugStreamLine("%s", "mini sweep");
-			float rot_spd = 25;
+			float rot_spd = mini_sweep_rot_speed;
 
 			// using timer T1
 			clearTimer(T3);
@@ -64,7 +69,7 @@ void mini_sweep()
 void move_forward()
 {
 	writeDebugStreamLine("%s", "ball not found, move forward and repeat search");
-	float motor_spd = 1000;
+	float motor_spd = forward_search_speed;
 
 	clearTimer(T3);
 	while (time1(T3) < 2000 && ball_found == 0)

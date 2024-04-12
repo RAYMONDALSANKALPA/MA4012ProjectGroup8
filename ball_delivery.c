@@ -40,20 +40,24 @@ int bumper_l;
 int bumper_r;
 
 void dispense(){
+	writeDebugStreamLine("%s","Dispensing");
 	int motor_power = 100;
-	int motor_time = 500;
+	int motor_time = 300;
 	dispensor_forward_time(motor_power, motor_time);
 	dispensor_stop();
+	sleep(motor_time);
 	dispensor_backward_time(motor_power, motor_time);
 	dispensor_stop();
 }
 
 void move_to_delivery_area(){
+	writeDebugStreamLine("%s","Moving to delivery area");
 	int motor_power = 1000;
 	backward(motor_power);
 }
 
 void turn_to_delivery_area(){
+	writeDebugStreamLine("%s","Turning to delivery area");
 	int motor_power = 80;
 	int direction = read_compass();
 	int calibrate_compass_l = 0;
@@ -62,13 +66,12 @@ void turn_to_delivery_area(){
 		//writeDebugStreamLine("%d", direction);
 		if (direction < delivery_direction){
 			turn_right(motor_power);
-			stop_motor();
+			motor_stop();
 			sleep(200);
-
 		}
 		else{
 			turn_left(motor_power);
-			stop_motor();
+			motor_stop();
 			sleep(200);
 			calibrate_compass_l = 1;
 		}
@@ -78,7 +81,7 @@ void turn_to_delivery_area(){
 	if (calibrate_compass_l == 1){
 		writeDebugStreamLine("%d", calibrate_compass_l);
 		turn_left_time(motor_power, 200);
-		stop_motor();
+		motor_stop();
 		sleep(200);
 
 	}
@@ -88,18 +91,19 @@ void turn_to_delivery_area(){
 }
 
 int can_dispense_ball_ir(){
+	writeDebugStreamLine("%s","checking if can dispense ball IR");
 	// check if the robot is near the delivery area using the line sensors
 	int line_BL = SensorValue(IR_BL); // sensor value of 0 means it is on the line
 	int line_BR = SensorValue(IR_BR);
 	int direction = read_compass();
 	if (direction == 4){
-		if (line_BL == 0 && line_BR == 0)return 1;
-		else if (line_BL == 0 && line_BR == 1){  // left bumper pressed
+		if (line_BL == 0 && line_BR == 0) return 1;
+		else if (line_BL == 0 && line_BR == 1){  // left IR detecting
 			turn_right_time(30, 100);
 			motor_stop();
 			return 1;
 		}
-		else if (line_BL == 1 && line_BR == 0){  // right bumper pressed
+		else if (line_BL == 1 && line_BR == 0){  // right IR detecting
 			turn_left_time(30, 100);
 			motor_stop();
 			return 1;
@@ -110,6 +114,7 @@ int can_dispense_ball_ir(){
 }
 
 int can_dispense_ball_bumper(){
+	writeDebugStreamLine("%s","can dispense ball bumper");
 	bumper_l = SensorValue(bumper_left);
 	bumper_r = SensorValue(bumper_right);
 
@@ -135,6 +140,67 @@ int can_dispense_ball_bumper(){
 	}
 
 }
+
+void delivery_retry(){
+	// move back a bit
+	int motor_power = 1000;
+	int motor_time = 1000;
+	forward_time(motor_power, motor_time);
+}
+
+void deliver_ball(){
+	//int ball_delivered = 0; // ball not delivered yet, defined up top
+	clearTimer(T4);
+
+	while (ball_delivered == 0){
+
+		// turn to delivery area direction
+		int direction = read_compass();
+		//writeDebugStreamLine("%d", direction);
+		if (direction != delivery_direction){
+			turn_to_delivery_area();
+		}
+
+		// move_to_delivery_area
+		move_to_delivery_area();
+
+		// check proximity to delivery area using the line sensors
+		//if (is_near_delivery_area2() == 1){
+
+		//check if can dispense
+		if (can_dispense_ball_ir()){
+			// stop!
+			motor_stop();
+			// dispense
+			dispense();
+			// update variables
+			ball_delivered = 0;
+			ball_found = 0;
+			
+			// move back to the collection area
+			first_move();
+			return;
+		}
+		//}
+
+		// Taking too long to deliver, need to retry (needa test irl)
+		if (time1(T4) > deliver_time_limit){
+			writeDebugStreamLine("%s", "retry delivery");
+			delivery_retry();// retry
+			clearTimer(T4);
+		}
+		//else keep trying!
+	}
+	//if (ball_delivered == 1) first_move();
+}
+
+// uncomment this + the motor sensor config + header files up top to test within this code
+//task main(){
+//	while(1){
+//		//deliver_ball();
+//		turn_to_delivery_area();
+//	}
+//}
 
 //int is_near_delivery_area1(){
 //	// check if the robot is near the delivery area using the line sensors
@@ -188,60 +254,3 @@ int can_dispense_ball_bumper(){
 //	else return 0;
 //}
 
-
-void delivery_retry(){
-	// move back a bit
-	int motor_power = 1000;
-	int motor_time = 1000;
-	forward_time(motor_power, motor_time);
-}
-
-void deliver_ball(){
-	//int ball_delivered = 0; // ball not delivered yet, defined up top
-	clearTimer(T4);
-
-	while (ball_delivered == 0){
-
-		// turn to delivery area direction
-		int direction = read_compass();
-		//writeDebugStreamLine("%d", direction);
-		if (direction != delivery_direction){
-			turn_to_delivery_area();
-		}
-
-		// move_to_delivery_area
-		move_to_delivery_area();
-
-		// check proximity to delivery area using the line sensors
-		//if (is_near_delivery_area2() == 1){
-
-		//check if can dispense
-		if (can_dispense_ball_ir()){
-			dispense();
-			motor_stop();
-			ball_delivered = 0;
-			ball_found = 0;
-			//ball_collected_limit = 1;
-			first_move();
-			return;
-		}
-		//}
-
-		// Taking too long to deliver, need to retry (needa test irl)
-		if (time1(T4) > deliver_time_limit){
-			writeDebugStreamLine("%s", "retry delivery");
-			delivery_retry();// retry
-			clearTimer(T4);
-		}
-		//else keep trying!
-	}
-	//if (ball_delivered == 1) first_move();
-}
-
-// uncomment this + the motor sensor config + header files up top to test within this code
-//task main(){
-//	while(1){
-//		//deliver_ball();
-//		turn_to_delivery_area();
-//	}
-//}

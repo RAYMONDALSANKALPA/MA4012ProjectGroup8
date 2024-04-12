@@ -71,7 +71,7 @@ void avoid_boundaries(int sensor_number)
 		}
 
 		hogCPU();
-		writeDebugStreamLine("%s", "boundary detected!");
+		writeDebugStreamLine("%s %d", "boundary detected!", array_element);
 		//writeDebugStreamLine("%d", array_element);
 
 		//FL,FR,BL,BR,2BR,2BL,2FR,2FL
