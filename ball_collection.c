@@ -8,13 +8,13 @@ int ball_collected_limit = SensorValue(ball_limit);
 
 // function to check if ball in collection range for neater code as it will be called multiple times
 void check_ball_in_range(){
-	if (avg_bl < 200){ //long sensor in range and short sensor not in range(if both in range means enemy robot)
+	if (avg_bl < bottom_detection_value){ //long sensor in range and short sensor not in range(if both in range means enemy robot)
 		ball_in_collection_range = 1;
 		//writeDebugStreamLine("%s" ,"ball_in_collection_range");
 		return;
 	}
 	else{
-		ball_in_collection_range =0;
+		ball_in_collection_range = 0;
 		//writeDebugStreamLine("%s" ,"ball_not_in_collection_range");
 		return;
 	}
@@ -48,7 +48,7 @@ void go_to_ball(){
 		}
 
 		ball_collected_limit = SensorValue(ball_limit);
-		//ball_collected_limit = 0;
+		//ball_collected_limit = 0
 		// if ball collected
 		if (ball_collected_limit != 1){
 			writeDebugStreamLine("%s", "ball collected at limit switch!");

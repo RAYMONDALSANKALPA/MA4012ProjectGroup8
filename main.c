@@ -33,8 +33,8 @@ task main()
 {
 	// threaded task that checks for sensor at all time
 	startTask(sensor_calibration);
-	//startTask(detect_boundary);
-	//startTask(detect_opponent);
+	startTask(detect_boundary);
+	startTask(detect_opponent);
 	// inital movement where we move half the field b4 executing spin search
 	first_move();
 	while(1)
@@ -48,9 +48,11 @@ task main()
 				// insert delivery mechanism
 			writeDebugStreamLine("%s", "begin delivery");
 				deliver_ball();
-				if (ball_delivered == 1){
-					first_move();
-				}
+				//shifted in house to deliver_ball
+				//if (ball_delivered == 1){
+				//	first_move();
+
+				//}
 			}
 			else if (ball_collected_limit ==1)ball_found = 0; // sends it back into ball_found searching loop
 		}

@@ -83,13 +83,13 @@ int read_compass()			// read compass value and return the direction
 
 	// convert the above if else statement to switch case
 	switch (combination){
-		case 1100:
+		case 1110:
 			compass_dir = north;
 			break;
-		case 1101:
+		case 1100:
 			compass_dir = northeast;
 			break;
-		case 1010:
+		case 1101:
 			compass_dir = east;
 			break;
 		case 1001:
@@ -101,10 +101,10 @@ int read_compass()			// read compass value and return the direction
 		case 0011:
 			compass_dir = southwest;
 			break;
-		case 0110:
+		case 0111:
 			compass_dir = west;
 			break;
-		case 1110:
+		case 0110:
 			compass_dir = northwest;
 			break;
 	}
