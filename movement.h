@@ -72,16 +72,6 @@ void turn_right_time (int motor_power, int motor_time){
     wait1Msec(motor_time);
 }
 
-//void conveyor_forward_time(int motor_power, int motor_time){
-//    conveyor_start(motor_power);
-//    wait1Msec(motor_time);
-//}
-
-//void conveyor_backward_time(int motor_power, int motor_time){
-//    conveyor_reverse(motor_power);
-//    wait1Msec(motor_time);
-//}
-
 void dispensor_forward_time(int motor_power, int motor_time){
     dispensor_forward(motor_power);
     wait1Msec(motor_time);

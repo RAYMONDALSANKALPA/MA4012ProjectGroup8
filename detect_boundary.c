@@ -61,21 +61,34 @@ void avoid_boundaries(int sensor_number)
 			break;
 	}
 
+
+
 	if (array_element != 4) {
+
 		if (SensorValue(ball_limit) == 0 && read_compass() == 4) return;
+		if (SensorValue(ball_limit) == 0) {
+			array_element = 4 + array_element;
+		}
+
 		hogCPU();
 		writeDebugStreamLine("%s", "boundary detected!");
+		//writeDebugStreamLine("%d", array_element);
 
-		int move[] = {-300, -300, 300, 300};
-		int rotate_left[] = {100, -100, -100, 100};
-		int rotate_right[] = {-100, 100, 100, -100};
+		//FL,FR,BL,BR,2BR,2BL,2FR,2FL
+		int move[] = {-80, -80, 80, 80, -80, -80, 80, 80};
+		int rotate_left[] = {100, -100, 30, -30, -30, 30, -100, 100};
+		int rotate_right[] = {-100, 100, -30, 30, 30, -30, 100, -100};
 
 	  clearTimer(T2);
-	  while (time1(T2) < (1000 + random(900)))	{
+	  while (time1(T2) < 200)	{
+	  	stop_motor();
+	  }
+	  clearTimer(T2);
+	  while (time1(T2) < 1200)	{
 	  	control_motor(move[array_element], move[array_element]);
 	  }
 	  clearTimer(T2);
-	  while (time1(T2) < (900 + random(900)))	{
+	  while (time1(T2) < (400 + random(200)))	{
 	  	control_motor(rotate_left[array_element], rotate_right[array_element]);
 	  }
 	  stop_motor();

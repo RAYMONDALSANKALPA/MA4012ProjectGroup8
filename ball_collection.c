@@ -13,14 +13,6 @@ void check_ball_in_range(){
 		//writeDebugStreamLine("%s" ,"ball_in_collection_range");
 		return;
 	}
-	//else if (avg_bs < 50 && avg_efd > top_detection_value){
-	//	ball_in_collection_range = 1;
-	//	writeDebugStreamLine("%s" ,"ball_in_collection_range");
-	//	return;
-	//}
-	//else if ((SensorValue(sharp_sensor1))< 100 && (SensorValue(sharp_sensor2))<100){
-	//	enemy_in_range = 1; // run enemy detection code?
-	//}
 	else{
 		ball_in_collection_range =0;
 		//writeDebugStreamLine("%s" ,"ball_not_in_collection_range");
@@ -45,27 +37,6 @@ void go_to_ball(){
 				turn_left_time(1000, 2000);
 				return;
 			}
-
-
-			// kinda optional code to optimise by ensuring that we are closing the distance between robot and ball(can increase count for btr comparison)
-			// idk how it will work irl, need to test and troubleshoot to see if its viable
-		//	if (count == 0){
-		//		prev_dist = avg_bl;
-		//	}
-		//	if (count == 10){
-		//		// compares distance between 10 counts apart and while the prev dist is bigger than recorded but still ball in range, a sweep will
-		//		// optimise that it will guide itself back to the direction of the ball
-		//		while (prev_dist > avg_bl){
-		//			writeDebugStreamLine("%s", "ball getting further away, initiate short sweep");
-		//			check_ball_in_range();
-		//			motor_stop();
-		//			sleep(500);
-		//			turn_left(60);
-		//			sleep(500);
-		//			turn_right(60);
-		//		}
-			//}
-		//	count ++;
 		}
 
 		// insert a delay to allow the collected ball to hit the limit switch if it is collected as after it goes up the ramp and past the sensor

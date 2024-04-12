@@ -50,8 +50,6 @@ void dispense(){
 
 void move_to_delivery_area(){
 	int motor_power = 1000;
-	//int motor_time = delivery_movement_time;
-	//backward_time(motor_power, motor_time);
 	backward(motor_power);
 }
 
@@ -59,7 +57,6 @@ void turn_to_delivery_area(){
 	int motor_power = 80;
 	int direction = read_compass();
 	int calibrate_compass_l = 0;
-	writeDebugStreamLine("%d", direction);
 	while (direction != delivery_direction){
 			//writeDebugStreamLine("%d", direction);
 		if (direction < delivery_direction){
@@ -138,27 +135,27 @@ int can_dispense_ball(){
 //	}
 //}
 
-int is_near_delivery_area2(){
-	// check if the robot is near the delivery area using the line sensors
-	int line_BL = SensorValue(IR_BL); // sensor value of 0 means it is on the line
-	int line_BR = SensorValue(IR_BR);
+//int is_near_delivery_area2(){
+//	// check if the robot is near the delivery area using the line sensors
+//	int line_BL = SensorValue(IR_BL); // sensor value of 0 means it is on the line
+//	int line_BR = SensorValue(IR_BR);
 
-	if (line_BL == 0 && line_BR == 1){ // making the sensor value checking easier
-		forward_time(motor_power_slow, near_delivery_turn_time);
-		turn_right_time(motor_power_slow, near_delivery_turn_time);
-		motor_stop();
-		return 1;
-	}
-	else if(line_BR == 0 && line_BL ==1){
-		forward_time(motor_power_slow, near_delivery_turn_time);
-		turn_left_time(motor_power_slow, near_delivery_turn_time);
-		motor_stop();
-		return 1;
-	}
-	else if(line_BL == 0 && line_BR == 0) return 1;
+//	if (line_BL == 0 && line_BR == 1){ // making the sensor value checking easier
+//		forward_time(motor_power_slow, near_delivery_turn_time);
+//		turn_right_time(motor_power_slow, near_delivery_turn_time);
+//		motor_stop();
+//		return 1;
+//	}
+//	else if(line_BR == 0 && line_BL ==1){
+//		forward_time(motor_power_slow, near_delivery_turn_time);
+//		turn_left_time(motor_power_slow, near_delivery_turn_time);
+//		motor_stop();
+//		return 1;
+//	}
+//	else if(line_BL == 0 && line_BR == 0) return 1;
 
-	else return 0;
-}
+//	else return 0;
+//}
 
 
 void delivery_retry(){
@@ -176,6 +173,7 @@ void deliver_ball(){
 
 		// turn to delivery area direction
 		int direction = read_compass();
+		writeDebugStreamLine("%d", direction);
 		if (direction != delivery_direction){
 			turn_to_delivery_area();
 		}

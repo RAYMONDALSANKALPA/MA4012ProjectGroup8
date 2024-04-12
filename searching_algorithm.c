@@ -1,100 +1,76 @@
-void sweeping_search()
+// ball status
+int prev_status = 0;
+
+void normal_sweep()
 {
-	writeDebugStreamLine("%s", "sweeping searching");
-	scan_ball();
-	while(1)
-	{
-		if (ball_found == 1)
-		{
-			motor_stop();
-			scan_ball();
-			writeDebugStreamLine("%s", "ball found from sweep search");
-			return;
-		}
-		else
-		{
-			float rot_spd = 100;
+			writeDebugStreamLine("%s", "normal sweep");
+			float rot_spd = 35;
 
 			// using timer T1
-			clearTimer(T1);
-			while (time1(T1) < 1000 && ball_found == 0)
+			clearTimer(T3);
+			while (time1(T3) < 1500 && ball_found == 0)
+			{
+				// Rotate left
+				turn_right(rot_spd);
+				scan_ball();
+			}
+			clearTimer(T3);
+			while (time1(T3) < 3000 && ball_found == 0)
+			{
+				// Rotate right
+				turn_left(rot_spd);
+				scan_ball();
+			}
+			clearTimer(T3);
+			while (time1(T3) < 1500 && ball_found == 0)
+			{
+				// Rotate left
+				turn_right(rot_spd);
+				scan_ball();
+			}
+			return;
+}
+
+void mini_sweep()
+{
+			writeDebugStreamLine("%s", "mini sweep");
+			float rot_spd = 25;
+
+			// using timer T1
+			clearTimer(T3);
+			while (time1(T3) < 1000 && ball_found == 0)
 			{
 				// Rotate left
 				turn_left(rot_spd);
 				scan_ball();
 			}
-			clearTimer(T1);
-
-			while (time1(T1) < 2000 && ball_found == 0)
+			clearTimer(T3);
+			while (time1(T3) < 2000 && ball_found == 0)
 			{
 				// Rotate right
 				turn_right(rot_spd);
 				scan_ball();
 			}
-			clearTimer(T1);
-
-			while (time1(T1) < 1000 && ball_found == 0)
+			clearTimer(T3);
+			while (time1(T3) < 1000 && ball_found == 0)
 			{
 				// Rotate left
 				turn_left(rot_spd);
 				scan_ball();
 			}
-
-			if (ball_found == 0)
-			{
-				writeDebugStreamLine("%s", "failed to find ball from sweep search");
-				return;
-			}
-		}
-	}
+			return;
 }
-
-//void spinning_search()
-//{
-//	writeDebugStreamLine("%s", "spinning searching");
-//	float rot_time = 6000;
-//	float rot_spd = 60;
-
-//	// using timer T1
-//	clearTimer(T1);
-
-//	// Rotate CW
-//	turn_left(rot_spd)
-//	while (1)
-//	{
-
-//		if (ball_found == 1)
-//		{
-//			motor_stop();
-//			//sleep(1000);
-//			scan_ball();
-//			writeDebugStreamLine("%s", "ball found from spin search");
-//			return;
-//		}
-//		else
-//		{
-//			if (time1(T1) > rot_time)
-//			{
-//				motor(left_driver) = 0;
-//				motor(right_driver) = 0;
-//				writeDebugStreamLine("%s", "motor stopped");
-//				ball_found = 0;
-//				return;
-//			}
-//		}
-//	}
-//}
 
 void move_forward()
 {
-	writeDebugStreamLine("%s", "moving forward");
+	writeDebugStreamLine("%s", "ball not found, move forward and repeat search");
 	float motor_spd = 1000;
+
 	clearTimer(T3);
-	// move forward
-	forward(motor_spd);
-	while (time1(T3) < 2000)
+	while (time1(T3) < 2000 && ball_found == 0)
 	{
-		// scan ball
+		// move forward
+		forward(motor_spd);
 		scan_ball();
 		if (ball_found == 1)
 		{
@@ -103,7 +79,29 @@ void move_forward()
 			return;
 		}
 	}
-	motor_stop();
-	ball_found = 0;
-	return;
+}
+
+void sweeping_search() {
+
+	normal_sweep();
+	prev_status = ball_found;
+	wait1Msec(300);
+	scan_ball();
+
+	if (ball_found == 1) {
+		return;
+	}
+	else {
+
+		if (prev_status == 1) {
+			mini_sweep();
+			wait1Msec(200);
+			scan_ball();
+
+			if (ball_found == 1) {
+				return;
+			}
+		}
+		move_forward();
+	}
 }
