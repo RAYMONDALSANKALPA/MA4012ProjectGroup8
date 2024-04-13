@@ -44,9 +44,9 @@ void scan_ball()
     if (avg_bl < bottom_detection_value)
     {
     		motor_stop();
-            ball_found = 1;
-			writeDebugStreamLine("%s", "ball found");
-            return;
+        ball_found = 1;
+				writeDebugStreamLine("%s", "ball found");
+        return;
     }
    	else
     {
@@ -75,11 +75,11 @@ int read_compass()			// read compass value and return the direction
 	int west = 6;
 	int northwest = 7;
 
-    int pin1 = SensorValue(compass1);
-    int pin2 = SensorValue(compass2);
-    int pin3 = SensorValue(compass3);
-    int pin4 = SensorValue(compass4);
-    int combination = pin1 * 1000 + pin2 * 100 + pin3 * 10 + pin4;
+  int pin1 = SensorValue(compass1);
+  int pin2 = SensorValue(compass2);
+  int pin3 = SensorValue(compass3);
+  int pin4 = SensorValue(compass4);
+  int combination = pin1 * 1000 + pin2 * 100 + pin3 * 10 + pin4;
 	int compass_dir;
 
 	// convert the above if else statement to switch case
@@ -109,6 +109,5 @@ int read_compass()			// read compass value and return the direction
 			compass_dir = northwest;
 			break;
 	}
-
 	return compass_dir;
 }
