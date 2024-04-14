@@ -4,32 +4,23 @@ float move_spd = 1000; // max speed in competition
 
 void first_move()
 {
-	clearTimer(T2);
-
+	clearTimer(T3);
 	writeDebugStreamLine("%s", "starting procedure...");
 
 	// loop
-	while (1)
+	while (time1(T3) < move_time)
 	{
 		scan_ball();
 		// move forward
 		forward(move_spd);
+		if (ball_found == 1)	{
+			wait1Msec(300)
+			scan_ball()
 
-		if (ball_found == 1)
-		{
-			writeDebugStreamLine("%s", "ball found from starting procedure");
-			motor_stop();
-			writeDebugStreamLine("%s", "motor stopped");
-			return;
-		}
-
-		if (time1(T2) > move_time)
-		{
-			motor_stop();
-			sleep(200);
-			writeDebugStreamLine("%s", "motor stopped");
-			ball_found = 0;
-			return;
+			if (ball_found == 1)	{
+				writeDebugStreamLine("%s", "ball found from starting procedure");
+				return;
+			}
 		}
 	}
 }

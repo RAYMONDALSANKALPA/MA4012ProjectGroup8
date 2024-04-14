@@ -41,6 +41,10 @@ int scan_boundary()
 
 void avoid_boundaries(int sensor_number)
 {
+	if (SensorValue(ball_limit) == 0 && read_compass() == 4){
+		return;
+	}
+
 	int array_element = 4;
 
 	switch(sensor_number)	{
@@ -61,11 +65,7 @@ void avoid_boundaries(int sensor_number)
 			break;
 	}
 
-
-
 	if (array_element != 4) {
-
-		if (SensorValue(ball_limit) == 0 && read_compass() == 4) return;
 		if (SensorValue(ball_limit) == 0) {
 			array_element = 4 + array_element;
 		}
